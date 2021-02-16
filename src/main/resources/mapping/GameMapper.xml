@@ -21,9 +21,9 @@
 
     <select id="view" resultMap="BaseResultMap">
 
-         SELECT  g.id,g.during,g.car_score,g.car,g.created_by,u.name  FROM games g  LEFT JOIN  users u ON created_by = u.id
+         SELECT * frome games
 
-         WHERE g.id = #{id}
+         WHERE id = #{id}
     </select>
 
     <select id="index" resultMap="BaseResultMap">
