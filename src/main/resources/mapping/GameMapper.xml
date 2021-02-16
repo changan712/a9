@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a9.mapper.GameMapper">
+
+    <resultMap id="BaseResultMap" type="com.a9.entity.Game">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="during" jdbcType="DATE" property="during"/>
+        <result column="car_score" jdbcType="INTEGER" property="carScore"/>
+        <result column="car" jdbcType="INTEGER" property="car"/>
+        <result column="created_by" jdbcType="INTEGER" property="createdBy"/>
+        <result column="created_at" jdbcType="DATE" property="createdAt"/>
+        <result column="updated_by" jdbcType="INTEGER" property="updatedBy"/>
+        <result column="updated_at" jdbcType="DATE" property="updatedAt"/>
+    </resultMap>
+
+    <insert id="create">
+        <!--select * from user where id = #{id}-->
+        INSERT INTO games (during,car_score,car,created_by)
+        VALUES (#{body.during},#{body.carScore},#{body.car},#{body.createdBy})
+    </insert>
+
+    <select id="view" resultMap="BaseResultMap">
+
+         SELECT  g.id,g.during,g.car_score,g.car,g.created_by,u.name  FROM games g  LEFT JOIN  users u ON created_by = u.id
+
+         WHERE g.id = #{id}
+    </select>
+
+    <select id="index" resultMap="BaseResultMap">
+        SELECT  * FROM  games
+    </select>
+
+</mapper>
+
+
