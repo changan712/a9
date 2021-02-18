@@ -12,6 +12,7 @@ public class Game {
     private Date during;
     private Integer carScore;
     private Integer car;
+    private Integer map;
     private Integer createdBy;
     private Date createdAt;
 }

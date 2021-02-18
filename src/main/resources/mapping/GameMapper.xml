@@ -21,7 +21,7 @@
 
     <select id="view" resultMap="BaseResultMap">
 
-         SELECT * frome games
+         SELECT * FROM games
 
          WHERE id = #{id}
     </select>

@@ -1,24 +1,35 @@
 package com.a9.service;
 
 import com.a9.dto.GameDto;
+import com.a9.entity.Car;
 import com.a9.entity.Game;
+import com.a9.entity.User;
+import com.a9.mapper.CarMapper;
 import com.a9.mapper.GameMapper;
+import com.a9.mapper.UserMapper;
+import com.a9.vo.GameVo;
+import com.a9.vo.UserVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class GameService {
     @Autowired
     GameMapper gameMapper;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    CarMapper carMapper;
+
     final String patten = "mm:ss.SSS";
 
     public void create(GameDto body) {
@@ -43,22 +54,27 @@ public class GameService {
 
     }
 
-    public GameDto view(int id) {
+    public GameVo view(int id) {
         Game game = gameMapper.view(id);
 
-
-        GameDto gameDto = new GameDto();
-        BeanUtils.copyProperties(game, gameDto);
+        GameVo gameVo = new GameVo();
+        BeanUtils.copyProperties(game, gameVo);
         SimpleDateFormat format = new SimpleDateFormat(patten);
-        gameDto.setDuring(format.format(game.getDuring()));
+        gameVo.setDuring(format.format(game.getDuring()));
 
-        return gameDto;
+        User user = userMapper.view(game.getCreatedBy());
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user, userVo);
+        gameVo.setCreatedBy(userVo);
 
+        Car car = carMapper.view(game.getCar());
+        gameVo.setCar(car);
+
+        return gameVo;
 
     }
 
     public List<GameDto> index() {
-
 
         List<Game> list = gameMapper.index();
 

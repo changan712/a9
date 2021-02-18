@@ -3,6 +3,7 @@ package com.a9.controller;
 import com.a9.dto.GameDto;
 import com.a9.entity.Game;
 import com.a9.service.GameService;
+import com.a9.vo.GameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class GameController {
     }
 
     @GetMapping("{id}")
-    public GameDto view( @PathVariable int id){
+    public GameVo view(@PathVariable int id){
         return  gameService.view(id);
     }
 
