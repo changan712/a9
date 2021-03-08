@@ -3,9 +3,11 @@ package com.a9.service;
 import com.a9.dto.GameDto;
 import com.a9.entity.Car;
 import com.a9.entity.Game;
+import com.a9.entity.MapGame;
 import com.a9.entity.User;
 import com.a9.mapper.CarMapper;
 import com.a9.mapper.GameMapper;
+import com.a9.mapper.MapMapper;
 import com.a9.mapper.UserMapper;
 import com.a9.vo.GameVo;
 import com.a9.vo.UserVo;
@@ -29,6 +31,9 @@ public class GameService {
 
     @Autowired
     CarMapper carMapper;
+
+    @Autowired
+    MapMapper mapMapper;
 
     final String patten = "mm:ss.SSS";
 
@@ -59,6 +64,7 @@ public class GameService {
 
         GameVo gameVo = new GameVo();
         BeanUtils.copyProperties(game, gameVo);
+
         SimpleDateFormat format = new SimpleDateFormat(patten);
         gameVo.setDuring(format.format(game.getDuring()));
 
@@ -66,6 +72,9 @@ public class GameService {
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user, userVo);
         gameVo.setCreatedBy(userVo);
+
+        MapGame mapGame = mapMapper.view(game.getMap());
+        gameVo.setMap(mapGame);
 
         Car car = carMapper.view(game.getCar());
         gameVo.setCar(car);

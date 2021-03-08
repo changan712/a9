@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a9.mapper.MapMapper">
+
+    <resultMap id="BaseResultMap" type="com.a9.entity.MapGame">
+        <result column="cate_name"  property="cateName"/>
+       <!-- <result column="id"  property="id"/>
+        <result column="name"  property="name"/>
+        <result column="category"  property="category"/>-->
+    </resultMap>
+    <insert id="create"  >
+        <!--select * from user where id = #{id}-->
+        INSERT INTO maps (name,category,cate_name)
+        VALUES (#{body.name},#{body.category},#{body.cateName})
+    </insert>
+
+    <select id="view" resultMap="BaseResultMap">
+
+         SELECT * FROM maps
+
+         WHERE id = #{id}
+    </select>
+
+    <select id="index" resultMap="BaseResultMap">
+        SELECT  * FROM  maps
+    </select>
+
+</mapper>
+
+
